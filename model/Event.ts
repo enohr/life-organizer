@@ -1,5 +1,5 @@
 import { timeStamp } from 'console';
-import mongoose, { Schema } from 'mongoose';
+import mongoose, { Schema, Types } from 'mongoose';
 
 const EventSchema = new Schema({
   day: { type: String, required: true },
@@ -7,6 +7,11 @@ const EventSchema = new Schema({
   final_hour: { type: Date, default: Date.now() },
   title: { type: String, required: true },
   description: { type: String },
+  user: {
+    type: Types.ObjectId,
+    ref: 'Events',
+  },
 });
 
-export default mongoose.model('Event', EventSchema);
+export const Event =
+  mongoose.models.Event || mongoose.model('Event', EventSchema);

@@ -7,12 +7,6 @@ const UserSchema = new Schema({
   password: { type: String, required: true },
   email: { type: String, required: true },
   birth_date: { type: Date },
-  events: [
-    {
-      type: Types.ObjectId,
-      ref: 'Events',
-    },
-  ],
 });
 
-export default mongoose.model('User', UserSchema);
+export const User = mongoose.models.User || mongoose.model('User', UserSchema);

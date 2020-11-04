@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import User from '../../model/User';
+import { Event } from '../../model/Event';
+import { User } from '../../model/User';
 import connect from '../../utils/database';
 
 export default async (
@@ -11,5 +12,8 @@ export default async (
   if (req.method === 'POST') {
     const user = await User.create(req.body);
     res.status(200).json({ message: user });
+  } else if (req.method === 'GET') {
+    const users = await User.find();
+    res.json({ users });
   }
 };
