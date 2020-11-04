@@ -7,13 +7,21 @@ export default async (
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> => {
-  await connect();
-
   if (req.method === 'POST') {
+    await connect();
+
     const user = await User.create(req.body);
-    res.status(200).json({ message: user });
+    return res.status(200).json({ message: user });
+  } else if (req.method === 'GET' && req.query._id) {
+    await connect();
+
+    const { _id } = req.query;
+    const user = await User.findById({ _id });
+    return res.status(200).json({ user });
   } else if (req.method === 'GET') {
+    await connect();
+
     const users = await User.find();
-    res.json({ users });
+    return res.status(200).json({ users });
   }
 };
