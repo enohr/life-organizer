@@ -1,4 +1,3 @@
-import { timeStamp } from 'console';
 import mongoose, { Schema, Types } from 'mongoose';
 
 const EventSchema = new Schema({
@@ -9,7 +8,7 @@ const EventSchema = new Schema({
   description: { type: String },
   user: {
     type: Types.ObjectId,
-    ref: 'Events',
+    ref: 'User',
   },
 });
 
