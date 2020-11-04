@@ -12,12 +12,6 @@ export default async (
 
     const user = await User.create(req.body);
     return res.status(200).json({ message: user });
-  } else if (req.method === 'GET' && req.query._id) {
-    await connect();
-
-    const { _id } = req.query;
-    const user = await User.findById({ _id });
-    return res.status(200).json({ user });
   } else if (req.method === 'GET') {
     await connect();
 

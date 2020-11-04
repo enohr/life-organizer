@@ -41,13 +41,6 @@ export default async (
     const { user_id } = req.headers;
     const event = await Event.find({ user: user_id });
     return res.status(200).json({ event: event });
-  } else if (req.method === 'DELETE') {
-    await connect();
-
-    const { _id } = req.query;
-    const deletedEvent = await Event.findByIdAndRemove({ _id });
-
-    return res.status(200).json({ deleted: deletedEvent });
   }
 
   res.status(400).json({ data: 'Wrong method' });
