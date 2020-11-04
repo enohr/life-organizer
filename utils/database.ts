@@ -5,6 +5,7 @@ const connect = async (): Promise<void> => {
     .connect(process.env.DATABASE_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
+      useFindAndModify: false,
     })
     .then(() => {
       console.log('MongoDB successfully connected.');

@@ -9,9 +9,9 @@ export default async (
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> => {
-  await connect();
-
   if (req.method === 'POST') {
+    await connect();
+
     const { user_id } = req.headers;
 
     console.log(req.headers);
@@ -36,10 +36,19 @@ export default async (
 
     return res.status(200).json({ data: event });
   } else if (req.method === 'GET') {
+    await connect();
+
     const { user_id } = req.headers;
     const event = await Event.find({ user: user_id });
     return res.status(200).json({ event: event });
+  } else if (req.method === 'DELETE') {
+    await connect();
+
+    const { _id } = req.query;
+    const deletedEvent = await Event.findByIdAndRemove({ _id });
+
+    return res.status(200).json({ deleted: deletedEvent });
   }
 
-  res.status(200).json({ data: 'Teste' });
+  res.status(400).json({ data: 'Wrong method' });
 };
