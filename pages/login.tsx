@@ -1,19 +1,24 @@
 import axios from 'axios';
 import { NextPage } from 'next';
 import { useRef, useState } from 'react';
-import { useRouter } from 'next/router';
-import { useAuth } from '../api/context/auth';
+import { Router, useRouter } from 'next/router';
+import useUser from '../lib/useUser';
 
 const LoginPage: NextPage = () => {
   const emailInput = useRef(null);
   const passwordInput = useRef(null);
-  const { login } = useAuth();
+  const { mutateUser } = useUser();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const email = emailInput.current.value;
     const password = passwordInput.current.value;
-    login(email, password);
+
+    const response = await axios.post('http://localhost:3000/api/auth/login', {
+      email,
+      password,
+    });
+    await mutateUser(response.data);
   };
 
   return (

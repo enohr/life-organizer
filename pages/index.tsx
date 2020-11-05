@@ -1,7 +1,10 @@
 import { NextPage } from 'next';
 import Nav from '../components/nav';
+import useUser from '../lib/useUser';
 
 const IndexPage: NextPage = () => {
+  const { user } = useUser();
+  console.log(user);
   return (
     <div>
       <Nav />
