@@ -1,3 +1,4 @@
+import { hash } from 'bcrypt';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { Event } from '../../model/Event';
 import { User } from '../../model/User';
@@ -10,8 +11,28 @@ export default async (
   if (req.method === 'POST') {
     await connect();
 
-    const user = await User.create(req.body);
-    return res.status(200).json({ message: user });
+    const {
+      password,
+      email,
+      username,
+      first_name,
+      last_name,
+      birth_date,
+    } = req.body;
+    const hashPass = await hash(password, 10);
+    const user = await User.create({
+      email,
+      username,
+      password: hashPass,
+      first_name,
+      last_name,
+      birth_date,
+    });
+    if (user) {
+      return res.status(200).json({ message: user });
+    } else {
+      return res.status(401).json({ error: 'E-mail already in use' });
+    }
   } else if (req.method === 'GET') {
     await connect();
 

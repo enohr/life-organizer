@@ -13,14 +13,22 @@ const LoginPage: NextPage = () => {
     const email = emailInput.current.value;
     const password = passwordInput.current.value;
 
-    const response = await axios.post('http://localhost:3000/api/auth/login', {
-      email,
-      password,
-    });
-    if (response) {
-      console.log(response);
-      Router.push('/');
+    try {
+      const response = await axios.post(
+        'http://localhost:3000/api/auth/login',
+        {
+          email,
+          password,
+        }
+      );
+      if (response) {
+        console.log(response);
+        Router.push('/');
+      }
+    } catch (error) {
+      console.log(error);
     }
+
     // router.push('/');
   };
 

@@ -3,6 +3,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { User } from '../../../model/User';
 import connect from '../../../utils/database';
 import cookie from 'cookie';
+import { compare } from 'bcrypt';
 
 export default async (
   req: NextApiRequest,
@@ -14,8 +15,9 @@ export default async (
 
     const user = await User.findOne({ email: email });
 
-    if (!user) {
-      return res.status(401).json({ error: 'Wrong credentials' });
+    const compared = await compare(password, user.password);
+    if (!user || !compared) {
+      return res.status(400).json({ error: 'Wrong credentials' });
     }
     const obj = {
       email: user.email,
