@@ -2,41 +2,25 @@ import axios from 'axios';
 import { NextPage } from 'next';
 import { useRef, useState } from 'react';
 import { useRouter } from 'next/router';
+import { useAuth } from '../api/context/auth';
 
 const LoginPage: NextPage = () => {
   const emailInput = useRef(null);
   const passwordInput = useRef(null);
-  const Router = useRouter();
+  const { login } = useAuth();
 
-  const handleLogin = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     const email = emailInput.current.value;
     const password = passwordInput.current.value;
-
-    try {
-      const response = await axios.post(
-        'http://localhost:3000/api/auth/login',
-        {
-          email,
-          password,
-        }
-      );
-      if (response) {
-        console.log(response);
-        Router.push('/');
-      }
-    } catch (error) {
-      console.log(error);
-    }
-
-    // router.push('/');
+    login(email, password);
   };
 
   return (
     <div className="w-full max-w-xs">
       <form
         className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
-        onSubmit={handleLogin}
+        onSubmit={handleSubmit}
       >
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2">
