@@ -2,11 +2,6 @@ import axios from 'axios';
 import { NextPage } from 'next';
 import Link from 'next/link';
 
-const links = [
-  { href: 'https://github.com/vercel/next.js', label: 'GitHub' },
-  { href: 'https://nextjs.org/docs', label: 'Docs' },
-];
-
 const Nav: NextPage = () => {
   return (
     <nav>
@@ -22,13 +17,21 @@ const Nav: NextPage = () => {
           </Link>
         </li>
         <ul className="flex justify-between items-center space-x-4">
-          {links.map(({ href, label }) => (
-            <li key={`${href}${label}`}>
-              <a href={href} className="btn-blue no-underline">
-                {label}
-              </a>
-            </li>
-          ))}
+          <Link href="/login">
+            <a className="btn-blue no-underline">Login</a>
+          </Link>
+          <Link href="/signup">
+            <a className="btn-blue no-underline">Signup</a>
+          </Link>
+          <li>
+            <button
+              onClick={() =>
+                axios.post('http://localhost:3000/api/auth/logout')
+              }
+            >
+              Logout
+            </button>
+          </li>
         </ul>
       </ul>
     </nav>
