@@ -1,17 +1,14 @@
 import axios from 'axios';
 import { NextPage } from 'next';
 import Link from 'next/link';
+import { useUser } from '../lib/useUser';
 
 const Nav: NextPage = () => {
+  const { user } = useUser();
   return (
     <nav>
       <ul className="flex justify-between items-center p-8">
         <li>
-          <button
-            onClick={() => axios.post('http://localhost:3000/api/auth/logout')}
-          >
-            Logout
-          </button>
           <Link href="/">
             <a className="text-blue-500 no-underline">Home</a>
           </Link>

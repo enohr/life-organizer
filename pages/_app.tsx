@@ -7,8 +7,8 @@ import { AuthProvider } from '../lib/useUser';
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   return (
     <>
-      <Nav />
       <AuthProvider>
+        <Nav />
         <ProtectRoutes>
           <Component {...pageProps} />
         </ProtectRoutes>

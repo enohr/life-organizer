@@ -7,8 +7,19 @@ export const ProtectRoutes = ({ children }) => {
   const Route = useRouter();
 
   if (user) {
-    if (!user.isLoggedIn && Route.pathname !== '/login') {
+    console.log(user);
+    console.log(Route.pathname);
+    if (
+      !user.isLoggedIn &&
+      Route.pathname !== '/login' &&
+      Route.pathname !== '/signup'
+    ) {
       Route.push('/login');
+    } else if (
+      user.isLoggedIn &&
+      (Route.pathname == '/login' || Route.pathname === '/signup')
+    ) {
+      Route.push('/');
     }
   }
   return children;
