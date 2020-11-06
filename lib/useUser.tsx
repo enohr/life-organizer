@@ -1,12 +1,15 @@
-import { useEffect } from 'react';
+import { useEffect, createContext, useContext } from 'react';
 import Router from 'next/router';
 import useSWR from 'swr';
 
-export default function useUser({ redirectTo, redirectIfFound } = {}) {
+const SessionContext = createContext({});
+
+export const AuthProvider = ({ children }) => {
   const { data: user, mutate: mutateUser } = useSWR(
     'http://localhost:3000/api/auth/session'
   );
 
+  /*
   useEffect(() => {
     // if no redirect needed, just return (example: already on /dashboard)
     // if user data not yet there (fetch in progress, logged in or not) then don't do anything yet
@@ -21,6 +24,13 @@ export default function useUser({ redirectTo, redirectIfFound } = {}) {
       Router.push(redirectTo);
     }
   }, [user, redirectIfFound, redirectTo]);
+  */
 
-  return { user, mutateUser };
-}
+  return (
+    <SessionContext.Provider value={{ user, mutateUser }}>
+      {children}
+    </SessionContext.Provider>
+  );
+};
+
+export const useUser = () => useContext(SessionContext);
