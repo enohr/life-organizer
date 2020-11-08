@@ -1,5 +1,4 @@
 import { useRouter } from 'next/router';
-import LoginPage from '../pages/login';
 import { useUser } from './useUser';
 
 export const ProtectRoutes = ({ children }) => {
@@ -12,7 +11,8 @@ export const ProtectRoutes = ({ children }) => {
     if (
       !user.isLoggedIn &&
       Route.pathname !== '/login' &&
-      Route.pathname !== '/signup'
+      Route.pathname !== '/signup' &&
+      Route.pathname !== '/'
     ) {
       Route.push('/login');
     } else if (
