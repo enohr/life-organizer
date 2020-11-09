@@ -33,7 +33,7 @@ const LoginPage: NextPage = () => {
         startDate,
       });
       await mutateUser(response.data);
-      Router.push('/');
+      Router.push('/board');
     } catch (error) {
       Router.reload();
     }

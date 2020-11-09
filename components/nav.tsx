@@ -6,7 +6,7 @@ import { useUser } from '../lib/useUser';
 const Nav: NextPage = () => {
   const { user } = useUser();
   return (
-    <nav className="px-4 shadow-xl">
+    <nav className="px-4 shadow-xl fixed top-0 w-full overflow-hidden bg-white z-10">
       <ul className="flex justify-between items-center p-2 mx-8">
         <li>
           <Link href="/">

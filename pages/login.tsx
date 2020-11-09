@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { NextPage } from 'next';
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import { useRouter } from 'next/router';
 import { useUser } from '../lib/useUser';
 
@@ -24,7 +24,7 @@ const LoginPage: NextPage = () => {
         }
       );
       await mutateUser(response.data);
-      Router.push('/');
+      Router.push('/board');
     } catch (error) {
       Router.reload();
     }
