@@ -22,7 +22,10 @@ html, body {
 
 .bg-custom-btn {
   background: linear-gradient(261.54deg, #4A8FE7 7.84%, #5C7AFF 100.32%);
+}
 
+.border-interval {
+  box-shadow: 0 0 0 1px #000;
 }
 
 /* Start purging... */
