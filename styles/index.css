@@ -1,4 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap');
 @tailwind base;
+
+html, body {
+  font-family: 'Open Sans', sans-serif;
+}
 
 /* Write your own custom base styles here */
 
@@ -8,7 +13,16 @@
 
 /* Write your own custom component styles here */
 .btn-blue {
-  @apply bg-blue-500 text-white font-bold py-2 px-4 rounded;
+  @apply bg-custom-btn text-white font-bold py-2 px-4 rounded;
+}
+
+.lt-spacing-logo {
+  letter-spacing: 0.25em;
+}
+
+.bg-custom-btn {
+  background: linear-gradient(261.54deg, #4A8FE7 7.84%, #5C7AFF 100.32%);
+
 }
 
 /* Start purging... */
