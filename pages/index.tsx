@@ -41,7 +41,21 @@ const IndexPage: NextPage = () => {
         </div>
       </div>
 
-      <div></div>
+      <div className="flex items-center justify-center">
+        <div>
+          <span>Icons made by: </span>
+          <a
+            href="https://www.flaticon.com/authors/roundicons"
+            title="Roundicons"
+          >
+            Roundicons
+          </a>
+          <span> from: </span>
+          <a href="https://www.flaticon.com/" title="Flaticon">
+            www.flaticon.com
+          </a>
+        </div>
+      </div>
     </div>
   );
 };

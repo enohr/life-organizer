@@ -25,8 +25,35 @@ html, body {
 }
 
 .border-interval {
-  box-shadow: 0 0 0 1px #000;
+  box-shadow: 0 0 0 1px rgba(0,0,0, 0.1);
 }
+
+.cell {
+  transition: ease 0.5s;
+}
+
+.cell:hover {
+  height: 5rem;
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 999;
+  width: 40vw;
+  background-color: #CCC;
+}
+
+.spinner img {
+  animation: loading 1500ms infinite linear;
+}
+
+@keyframes loading {
+  to {transform: rotate(360deg);}
+}
+
+
 
 /* Start purging... */
 @tailwind utilities;
