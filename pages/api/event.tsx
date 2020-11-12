@@ -10,23 +10,24 @@ export default withIronSession(
     if (req.method === 'POST') {
       await connect();
 
-      const { id } = req.session.get('user');
+      if (req.session.get('user')) {
+        return res.status(400).json({ message: 'Login first.' });
+      }
 
+      // In theory, this is not needed, cause in session we have the user. Just a double check.
+      const { id } = req.session.get('user');
       const user = await User.findById({ _id: id });
 
       if (!user) {
         return res.status(400).json({ message: 'User not found' });
       }
-      // const { day, initial_hour, final_hour, title } = req.body;
-
-      // const initialHour = new Date(initial_hour);
-      // const finalHour = new Date(final_hour);
+      const { day, initial_hour, final_hour, title } = req.body;
 
       const event = await Event.create({
-        day: 'Monday',
-        initialHour: '16:00:00',
-        finalHour: 'T17:00:00',
-        title: 'Job',
+        day: day,
+        initialHour: initial_hour,
+        finalHour: final_hour,
+        title: title,
         user: id,
       });
 

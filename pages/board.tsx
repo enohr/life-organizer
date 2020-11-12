@@ -6,6 +6,7 @@ import React, { useState, useEffect } from 'react';
 import { daysAndHours } from '../utils/days';
 import Modal from '../components/modal';
 import Loading from '../components/loading';
+import { useUser } from '../lib/useUser';
 
 const Board: NextPage = () => {
   const [response, setResponse] = useState({});
@@ -16,16 +17,18 @@ const Board: NextPage = () => {
 
   useEffect(() => {
     setLoading(1);
-    axios.get('/api/event').then((res) => {
-      setResponse(res.data.events);
-    });
+    axios
+      .get('/api/event')
+      .then((res) => {
+        setResponse(res.data.event);
+        setLoading(0);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }, []);
 
-  async function handleSubmit(e) {
-    e.preventDefault();
-
-    // const response = await axios.post('http://localhost:3000/api/event');
-  }
+  console.log(response);
 
   return (
     <>
