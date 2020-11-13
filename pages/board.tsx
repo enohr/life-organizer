@@ -13,7 +13,7 @@ const Board: NextPage = () => {
   const [hours, setHours] = useState([]);
   const [events, setEvents] = useState('');
   const [loading, setLoading] = useState(1);
-  const [modal, setModal] = useState(0);
+  const [isModalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     setLoading(1);
@@ -32,7 +32,7 @@ const Board: NextPage = () => {
 
   return (
     <>
-      <Modal open={modal} />
+      <Modal visible={isModalVisible} onClose={() => setModalVisible(false)} />
       <div className="my-20 mx-0 w-full h-screen">
         {loading === 0 ? (
           <div className="flex flex-row items-center justify-center">
@@ -45,7 +45,7 @@ const Board: NextPage = () => {
                     initialTime={hour}
                     finalTime={hour + 1}
                     key={hour}
-                    onClick={() => {}}
+                    onClick={() => setModalVisible(true)}
                   />
                 ))}
               </div>
