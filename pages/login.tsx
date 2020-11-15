@@ -2,7 +2,7 @@ import axios from 'axios';
 import { NextPage } from 'next';
 import { useRef } from 'react';
 import { useRouter } from 'next/router';
-import { useUser } from '../lib/useUser';
+import { useUser } from '../context/user';
 
 const LoginPage: NextPage = () => {
   const emailInput = useRef(null);

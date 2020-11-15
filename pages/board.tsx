@@ -6,7 +6,7 @@ import React, { useState, useEffect } from 'react';
 import { daysAndHours } from '../utils/days';
 import Modal from '../components/modal';
 import Loading from '../components/loading';
-import { useUser } from '../lib/useUser';
+import { useUser } from '../context/user';
 
 const Board: NextPage = () => {
   const [response, setResponse] = useState({});
@@ -22,13 +22,12 @@ const Board: NextPage = () => {
       .then((res) => {
         setResponse(res.data.event);
         setLoading(0);
+        console.log(res);
       })
       .catch((error) => {
         console.error(error);
       });
   }, []);
-
-  console.log(response);
 
   return (
     <>

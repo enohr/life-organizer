@@ -2,7 +2,7 @@ import { AppProps } from 'next/dist/next-server/lib/router/router';
 import '../styles/index.css';
 import Nav from '../components/nav';
 import { ProtectRoutes } from '../lib/ProtectRoutes';
-import { AuthProvider } from '../lib/useUser';
+import { AuthProvider } from '../context/user';
 import Head from 'next/head';
 
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {

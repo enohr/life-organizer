@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { useUser } from './useUser';
+import { useUser } from '../context/user';
 
 export const ProtectRoutes = ({ children }) => {
   const { user } = useUser();

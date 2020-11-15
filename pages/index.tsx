@@ -1,5 +1,5 @@
 import { NextPage } from 'next';
-import { useUser } from '../lib/useUser';
+import { useUser } from '../context/user';
 import Image from 'next/image';
 import Link from 'next/link';
 

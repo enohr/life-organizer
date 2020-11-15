@@ -2,7 +2,7 @@ import axios from 'axios';
 import { NextPage } from 'next';
 import { useRef, useState } from 'react';
 import { useRouter } from 'next/router';
-import { useUser } from '../lib/useUser';
+import { useUser } from '../context/user';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { NextPage } from 'next';
 import Link from 'next/link';
-import { useUser } from '../lib/useUser';
+import { useUser } from '../context/user';
 
 const Nav: NextPage = () => {
   const { user } = useUser();
