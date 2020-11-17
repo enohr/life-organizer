@@ -3,12 +3,14 @@ import { NextPage } from 'next';
 import { useRef } from 'react';
 import { useRouter } from 'next/router';
 import { useUser } from '../context/user';
+import { useToast } from '../context/toast';
 
 const LoginPage: NextPage = () => {
   const emailInput = useRef(null);
   const passwordInput = useRef(null);
   const { mutateUser } = useUser();
   const Router = useRouter();
+  const { showToast } = useToast();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,15 +18,17 @@ const LoginPage: NextPage = () => {
     const password = passwordInput.current.value;
 
     try {
-      const response = await axios.post(
-        'http://localhost:3000/api/auth/login',
-        {
+      axios
+        .post('http://localhost:3000/api/auth/login', {
           email,
           password,
-        }
-      );
-      await mutateUser(response.data);
-      Router.push('/board');
+        })
+        .then((response) => {
+          mutateUser(response.data).then(() => {
+            Router.push('/board');
+            showToast('Login efetuado com sucesso', 'success');
+          });
+        });
     } catch (error) {
       Router.reload();
     }

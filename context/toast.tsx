@@ -1,33 +1,44 @@
 import { createContext, useCallback, useContext, useState } from 'react';
 import Toast from '../components/toast';
 
-const ToastContext = createContext({});
+interface ToastContextData {
+  showToast(message: string, type: 'success' | 'warning' | 'error'): void;
+  closeToast(): void;
+}
 
-const ToastProvider: React.Fc = ({ children }) => {
-  const [visible, setVisible] = useState(false);
-  const [type, setType] = useState();
+const ToastContext = createContext<ToastContextData>({} as ToastContextData);
+
+export const ToastProvider: React.FC = ({ children }) => {
+  const [visible, setVisible] = useState(0);
+  const [type, setType] = useState<'success' | 'warning' | 'error'>('success');
   const [message, setMessage] = useState('');
 
-  const showToast = useCallback((message, type) => {
-    setVisible(true);
-    setType(type);
-    setMessage(message);
+  const showToast = useCallback(
+    (message: string, type: 'success' | 'warning' | 'error') => {
+      setVisible(1);
+      setType(type);
+      setMessage(message);
 
-    setTimeout(() => {
-      setVisible(false);
-    }, 3000);
-  }, []);
+      setTimeout(() => {
+        setVisible(0);
+      }, 3000);
+    },
+    []
+  );
 
   const closeToast = useCallback(() => {
-    setVisible(false);
+    setVisible(0);
   }, []);
 
-  <ToastContext.Provider value={{ showToast, closeToast }}>
-    <Toast message={message} type={type} visible={visible} />
-    {children}
-  </ToastContext.Provider>;
+  return (
+    <ToastContext.Provider value={{ showToast, closeToast }}>
+      <Toast visible={visible} message={message} type={type} />
+      {children}
+    </ToastContext.Provider>
+  );
 };
 
-export function useToast() {
-  return useContext(ToastContext);
+export function useToast(): ToastContextData {
+  const context = useContext(ToastContext);
+  return context;
 }

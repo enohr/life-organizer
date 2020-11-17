@@ -60,13 +60,44 @@ html, body {
   to {transform: rotate(360deg);}
 }
 
-.toast {
+.toast-container {
   position: fixed;
   z-index: 99999;
-  top: 10vh;
-  right: -200px;
-  background-color: #5C7AFF;
-  transition: right 300ms ease-in-out;
+  top: 24px;
+  right: 12px;
+  border-radius: 5px;
+  animation: close-toast 1s ease-in-out;
+  transition: right 1s ease-in-out;
+}
+
+.toast-content {
+  transition: .3s ease;
+  width: 300px;
+  position: relative;
+  max-height: 100px;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 0 10px #AAAA;
+}
+
+.toast-content h1 {
+  font-weight: bold;  
+}
+
+.toast-container:hover {
+  opacity: 0.9;
+  cursor: pointer;
+}
+
+@keyframes close-toast {
+  from {
+    transform: translateX(100%)
+  }
+  to {
+    transform: translateX(0%);
+  }
 }
 
 
