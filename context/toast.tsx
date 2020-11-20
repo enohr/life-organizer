@@ -20,7 +20,7 @@ export const ToastProvider: React.FC = ({ children }) => {
       setMessage(message);
 
       setTimeout(() => {
-        setVisible(0);
+        setVisible(1);
       }, 3000);
     },
     []

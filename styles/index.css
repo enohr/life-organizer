@@ -86,8 +86,14 @@ html, body {
   font-weight: bold;  
 }
 
+.toast-message {
+  width: 100%;
+  align-items: flex-start;
+  margin-left: 20px;
+}
+
 .toast-container:hover {
-  opacity: 0.9;
+  opacity: 0.95;
   cursor: pointer;
 }
 

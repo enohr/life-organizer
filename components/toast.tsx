@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { useToast } from '../context/toast';
-import { colors } from '../utils/colors';
+import { toast } from '../utils/toastHelper';
 
 interface ToastProps {
   visible: number;
@@ -10,7 +10,8 @@ interface ToastProps {
 
 const Toast: React.FC<ToastProps> = ({ visible, message, type }) => {
   const { closeToast } = useToast();
-  const color = colors[type];
+  const color = toast[type].color;
+  const icon = toast[type].image;
 
   return (
     <>
@@ -21,9 +22,9 @@ const Toast: React.FC<ToastProps> = ({ visible, message, type }) => {
           style={{ backgroundColor: `${color}` }}
         >
           <div className="toast-content">
-            <Image src="/check.svg" height={20} width={20} />
+            <Image src={icon} height={30} width={30} />
             <div className="toast-message">
-              <h1>Success!</h1>
+              <h1>{type[0].toUpperCase() + type.slice(1)}!</h1>
               <p>{message}</p>
             </div>
           </div>
