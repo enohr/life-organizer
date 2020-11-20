@@ -92,8 +92,7 @@ html, body {
   margin-left: 20px;
 }
 
-.toast-container:hover {
-  opacity: 0.95;
+.close-button:hover {
   cursor: pointer;
 }
 

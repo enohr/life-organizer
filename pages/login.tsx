@@ -17,25 +17,24 @@ const LoginPage: NextPage = () => {
     const email = emailInput.current.value;
     const password = passwordInput.current.value;
 
-    try {
-      axios
-        .post('http://localhost:3000/api/auth/login', {
-          email,
-          password,
-        })
-        .then((response) => {
-          mutateUser(response.data).then(() => {
-            Router.push('/board');
-            showToast('Login efetuado com sucesso', 'success');
-          });
+    axios
+      .post('http://localhost:3000/api/auth/login', {
+        email,
+        password,
+      })
+      .then((response) => {
+        mutateUser(response.data).then(() => {
+          Router.push('/board');
+          showToast('Login efetuado com sucesso', 'success');
         });
-    } catch (error) {
-      Router.reload();
-    }
+      })
+      .catch(() => {
+        showToast('Erro ao efetuar login. Tente novamente', 'error');
+      });
   };
 
   return (
-    <div className="w-full max-w-xs">
+    <div className="w-full max-w-xs mt-20">
       <form
         className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
         onSubmit={handleSubmit}
@@ -74,17 +73,8 @@ const LoginPage: NextPage = () => {
           >
             Sign In
           </button>
-          <a
-            className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
-            href="#"
-          >
-            Forgot Password?
-          </a>
         </div>
       </form>
-      <p className="text-center text-gray-500 text-xs">
-        &copy;2020 Acme Corp. All rights reserved.
-      </p>
     </div>
   );
 };

@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import { useUser } from '../context/user';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { useToast } from '../context/toast';
 
 const LoginPage: NextPage = () => {
   const emailInput = useRef(null);
@@ -14,6 +15,7 @@ const LoginPage: NextPage = () => {
   const { mutateUser } = useUser();
   const Router = useRouter();
   const [startDate, setStartDate] = useState(new Date());
+  const { showToast } = useToast();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,21 +24,23 @@ const LoginPage: NextPage = () => {
     const firstName = firstNameInput.current.value;
     const lastName = lastNameInput.current.value;
 
-    console.log(startDate);
-
-    try {
-      const response = await axios.post('http://localhost:3000/api/user', {
+    axios
+      .post('http://localhost:3000/api/user', {
         email,
         password,
         first_name: firstName,
         last_name: lastName,
         startDate,
+      })
+      .then((response) => {
+        mutateUser(response.data).then(() => {
+          Router.push('/board');
+          showToast('Conta criada com sucesso', 'success');
+        });
+      })
+      .catch(() => {
+        showToast('Erro ao criar nova conta', 'error');
       });
-      await mutateUser(response.data);
-      Router.push('/board');
-    } catch (error) {
-      Router.reload();
-    }
   };
 
   return (

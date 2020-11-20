@@ -18,7 +18,6 @@ const Toast: React.FC<ToastProps> = ({ visible, message, type }) => {
       {visible ? (
         <div
           className={`toast-container ${type}`}
-          onClick={closeToast}
           style={{ backgroundColor: `${color}` }}
         >
           <div className="toast-content">
@@ -27,6 +26,13 @@ const Toast: React.FC<ToastProps> = ({ visible, message, type }) => {
               <h1>{type[0].toUpperCase() + type.slice(1)}!</h1>
               <p>{message}</p>
             </div>
+            <Image
+              className="close-button"
+              src="/close.svg"
+              height={20}
+              width={20}
+              onClick={closeToast}
+            />
           </div>
         </div>
       ) : (
