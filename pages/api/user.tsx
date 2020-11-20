@@ -10,26 +10,27 @@ export default withSession(
 
       const { password, email, first_name, last_name, birth_date } = req.body;
       const hashPass = await hash(password, 10);
-      const user = await User.create({
+      User.create({
         email,
         password: hashPass,
         first_name,
         last_name,
         birth_date,
-      });
-      if (user) {
-        const obj = {
-          email: user.email,
-          id: user._id,
-        };
+      })
+        .then(async (user) => {
+          const obj = {
+            email: user.email,
+            id: user._id,
+          };
 
-        req.session.set('user', obj);
-        await req.session.save();
+          req.session.set('user', obj);
+          await req.session.save();
 
-        return res.status(200).json({ obj });
-      } else {
-        return res.status(401).json({ error: 'E-mail already in use' });
-      }
+          return res.status(200).json({ obj });
+        })
+        .catch(() => {
+          return res.status(401).json({ error: 'E-mail already in use' });
+        });
     } else if (req.method === 'GET') {
       await connect();
 

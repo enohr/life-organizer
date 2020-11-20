@@ -11,8 +11,15 @@ export default withSession(
 
       const user = await User.findOne({ email: email });
 
+      if (!user) {
+        return res.status(401).json({
+          error: 'Wrong credentials',
+        });
+      }
+
       const compared = await compare(password, user.password);
-      if (!user || !compared) {
+
+      if (!compared) {
         return res.status(400).json({ error: 'Wrong credentials' });
       }
       const obj = {
