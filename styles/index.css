@@ -20,6 +20,10 @@ html, body {
   letter-spacing: 0.25em;
 }
 
+height-nav {
+  height: 95%;
+}
+
 .bg-custom-btn {
   background: linear-gradient(261.54deg, #4A8FE7 7.84%, #5C7AFF 100.32%);
 }

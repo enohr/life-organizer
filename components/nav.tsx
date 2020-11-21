@@ -6,12 +6,14 @@ import { useCallback } from 'react';
 import { useUser } from '../context/user';
 
 const Nav: NextPage = () => {
-  const router = useRouter();
-  const { user } = useUser();
+  const Router = useRouter();
+  const { user, mutateUser } = useUser();
 
   const logout = useCallback(() => {
     axios.post('http://localhost:3000/api/auth/logout').then(() => {
-      router.push('/');
+      mutateUser(null).then(() => {
+        Router.push('/');
+      });
     });
   }, []);
 
