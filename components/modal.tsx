@@ -1,6 +1,5 @@
-import axios from 'axios';
 import Image from 'next/image';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -8,9 +7,17 @@ import 'react-datepicker/dist/react-datepicker.css';
 interface ModalProps {
   visible: boolean;
   onClose(): void;
+  onClick(
+    title: string,
+    initial_hour: string,
+    final_hour: string,
+    day: string,
+    description?: string
+  ): void;
+  day: string;
 }
 
-const Modal: React.FC<ModalProps> = ({ visible, onClose }) => {
+const Modal: React.FC<ModalProps> = ({ visible, onClose, onClick, day }) => {
   const modalContainer = useRef();
   const titleRef = useRef(null);
   const descriptionRef = useRef(null);
@@ -30,23 +37,8 @@ const Modal: React.FC<ModalProps> = ({ visible, onClose }) => {
     const title = titleRef.current.value;
     const description = descriptionRef.current.value;
 
-    axios
-      .post('/api/event', {
-        day: 'Wednesday',
-        title,
-        description,
-        initial_hour: initialHour,
-        final_hour: finalHour,
-      })
-      .then((response) => {
-        console.log(response);
-        if (response) {
-          setLoading(0);
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    onClick(title, initialHour, finalHour, day, description);
+    setLoading(0);
   };
 
   return (
@@ -99,7 +91,7 @@ const Modal: React.FC<ModalProps> = ({ visible, onClose }) => {
                     showTimeSelectOnly
                     timeIntervals={30}
                     timeCaption="Time"
-                    dateFormat="h:mm aa"
+                    dateFormat="h:mm"
                   />
                 </div>
                 <div className="w-full md:w-1/2 px-3">
