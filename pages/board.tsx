@@ -10,7 +10,7 @@ import { useUser } from '../context/user';
 
 const Board: NextPage = () => {
   const [response, setResponse] = useState({});
-  const [hours, setHours] = useState([]);
+  const [hour, setHour] = useState(null);
   const [events, setEvents] = useState('');
   const [loading, setLoading] = useState(1);
   const [isModalVisible, setModalVisible] = useState(false);
@@ -33,8 +33,8 @@ const Board: NextPage = () => {
   const createEvent = useCallback(
     (
       title: string,
-      initial_hour: string,
-      final_hour: string,
+      initial_hour: number,
+      final_hour: number,
       day: string,
       description?: string
     ) => {
@@ -67,6 +67,7 @@ const Board: NextPage = () => {
         onClose={() => setModalVisible(false)}
         onClick={createEvent}
         day={selectedDay}
+        hour={hour}
       />
       <div className="my-20 mx-0 w-full h-screen">
         {loading === 0 ? (
@@ -83,6 +84,7 @@ const Board: NextPage = () => {
                     onClick={() => {
                       setModalVisible(true);
                       setSelectedDay(item.day);
+                      setHour(hour);
                     }}
                     selected={response[0].initial_hour === hour}
                   />

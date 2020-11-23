@@ -9,22 +9,33 @@ interface ModalProps {
   onClose(): void;
   onClick(
     title: string,
-    initial_hour: string,
-    final_hour: string,
+    initial_hour: number,
+    final_hour: number,
     day: string,
     description?: string
   ): void;
   day: string;
+  hour: number;
 }
 
-const Modal: React.FC<ModalProps> = ({ visible, onClose, onClick, day }) => {
+const Modal: React.FC<ModalProps> = ({
+  visible,
+  onClose,
+  onClick,
+  day,
+  hour,
+}) => {
   const modalContainer = useRef();
   const titleRef = useRef(null);
   const descriptionRef = useRef(null);
   const [loading, setLoading] = useState(0);
 
-  const [initialHour, setInitialHour] = useState(null);
-  const [finalHour, setFinalHour] = useState(null);
+  const [initialHour, setInitialHour] = useState(
+    new Date().setHours(hour, 0, 0, 0)
+  );
+  const [finalHour, setFinalHour] = useState(
+    new Date().setHours(hour + 1, 0, 0, 0)
+  );
 
   const handleClickOutside = (e) => {
     if (e.target === modalContainer.current) {
@@ -36,6 +47,8 @@ const Modal: React.FC<ModalProps> = ({ visible, onClose, onClick, day }) => {
     setLoading(1);
     const title = titleRef.current.value;
     const description = descriptionRef.current.value;
+
+    console.log(new Date(initialHour));
 
     onClick(title, initialHour, finalHour, day, description);
     setLoading(0);
@@ -66,6 +79,7 @@ const Modal: React.FC<ModalProps> = ({ visible, onClose, onClick, day }) => {
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   type="text"
                   ref={titleRef}
+                  required
                 />
               </div>
               <div className="mb-6">
@@ -89,9 +103,10 @@ const Modal: React.FC<ModalProps> = ({ visible, onClose, onClick, day }) => {
                     onChange={(hour) => setInitialHour(hour)}
                     showTimeSelect
                     showTimeSelectOnly
-                    timeIntervals={30}
+                    timeIntervals={60}
                     timeCaption="Time"
-                    dateFormat="h:mm"
+                    dateFormat="h:mm aa"
+                    required
                   />
                 </div>
                 <div className="w-full md:w-1/2 px-3">
@@ -107,6 +122,7 @@ const Modal: React.FC<ModalProps> = ({ visible, onClose, onClick, day }) => {
                     timeIntervals={30}
                     timeCaption="Time"
                     dateFormat="h:mm aa"
+                    required
                   />
                 </div>
               </div>
