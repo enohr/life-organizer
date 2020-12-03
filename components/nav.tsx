@@ -27,6 +27,21 @@ const Nav: NextPage = () => {
             </a>
           </Link>
         </li>
+        <li>
+          <Link href="/">
+            <a>HOME</a>
+          </Link>
+        </li>
+        <li>
+          <Link href="/board">
+            <a>BOARD</a>
+          </Link>
+        </li>
+        <li>
+          <Link href="/achievements">
+            <a>METAS</a>
+          </Link>
+        </li>
         <ul className="flex justify-between items-center space-x-4">
           {user?.isLoggedIn ? (
             <>
